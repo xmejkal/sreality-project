@@ -1,7 +1,7 @@
 # sreality-project
 
 Includes 2 submodules. 
-## Please Clone/Pull using --recursive-submodules. ##
+## Please Clone/Pull using --recurse-submodules. ##
 
 ```git pull --recursive-submodules```
 
