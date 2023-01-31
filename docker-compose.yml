@@ -36,7 +36,7 @@ services:
     container_name: sreality-web
     build: sreality/.
     ports:
-      - 5115:5115
+      - 80:5115
     depends_on:
       - db
       - scraper
