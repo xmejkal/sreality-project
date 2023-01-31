@@ -1,6 +1,6 @@
 [submodule "sreality"]
 	path = sreality
-	url = ./sreality
+	url = git@github.com:xmejkal/sreality.git
 [submodule "sreality-scraper"]
 	path = sreality-scraper
-	url = ./sreality-scraper
+	url = git@github.com:xmejkal/sreality-scraper.git
