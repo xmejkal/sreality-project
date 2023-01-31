@@ -1,0 +1,58 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13.2
+    container_name: sreality-postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: flats
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_socket:/var/run/postgresql
+
+  scraper:
+    container_name: sreality-scraper
+    build: sreality-scraper/.
+    command: scrapy crawl flats
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: flats
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_socket:/var/run/postgresql
+    env_file:
+      - sreality-scraper/.env
+    depends_on:
+      - db
+
+  web:
+    container_name: sreality-web
+    build: sreality/.
+    ports:
+      - 5115:5115
+    depends_on:
+      - db
+      - scraper
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: flats
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_socket:/var/run/postgresql
+    env_file:
+      - sreality/.env
+    stdin_open: true
+    tty: true
+volumes:
+  postgres_data:
+  postgres_socket:

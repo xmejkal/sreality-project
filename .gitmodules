@@ -1,0 +1,6 @@
+[submodule "sreality"]
+	path = sreality
+	url = ./sreality
+[submodule "sreality-scraper"]
+	path = sreality-scraper
+	url = ./sreality-scraper
